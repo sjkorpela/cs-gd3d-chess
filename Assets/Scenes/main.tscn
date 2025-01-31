@@ -1,3 +1,111 @@
-[gd_scene format=3 uid="uid://cfo73hnxevae2"]
+[gd_scene load_steps=13 format=3 uid="uid://cfo73hnxevae2"]
+
+[ext_resource type="ArrayMesh" uid="uid://bqildm7s8mmf6" path="res://Assets/Models/bishop.obj" id="1_nqjsd"]
+[ext_resource type="ArrayMesh" uid="uid://1y3x8g2qc38v" path="res://Assets/Models/king.obj" id="2_14faq"]
+[ext_resource type="ArrayMesh" uid="uid://db801ukd8gnc5" path="res://Assets/Models/knight.obj" id="3_b87dm"]
+[ext_resource type="ArrayMesh" uid="uid://b8md7w4jjk8qp" path="res://Assets/Models/pawn.obj" id="4_1o77q"]
+[ext_resource type="ArrayMesh" uid="uid://xv0tieq4qmd0" path="res://Assets/Models/queen.obj" id="5_jqoxh"]
+[ext_resource type="ArrayMesh" uid="uid://drl6i3vsk03ot" path="res://Assets/Models/rook.obj" id="6_4m3hv"]
+[ext_resource type="Environment" uid="uid://deiqd44lv3utc" path="res://Assets/Camera Environment Light/env1.tres" id="7_5w37o"]
+[ext_resource type="CameraAttributesPhysical" uid="uid://b05ekgddwb2lj" path="res://Assets/Camera Environment Light/cam1.tres" id="8_j5a6b"]
+[ext_resource type="Compositor" uid="uid://b3ewg6njcycft" path="res://Assets/Camera Environment Light/comp1.tres" id="9_k2gaa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hrgp2"]
+albedo_color = Color(0.252028, 0.252028, 0.252028, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wp3wo"]
+material = SubResource("StandardMaterial3D_hrgp2")
+size = Vector2(8, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6an4"]
+albedo_color = Color(0.0980392, 0.0980392, 0.207843, 1)
 
 [node name="Node3D" type="Node3D"]
+
+[node name="TempBoard" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, 4.5)
+mesh = SubResource("PlaneMesh_wp3wo")
+
+[node name="TestPieces" type="Node3D" parent="."]
+
+[node name="Bishop" type="MeshInstance3D" parent="TestPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 8)
+mesh = ExtResource("1_nqjsd")
+skeleton = NodePath("../..")
+
+[node name="King" type="MeshInstance3D" parent="TestPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 8)
+mesh = ExtResource("2_14faq")
+skeleton = NodePath("../..")
+
+[node name="Knight" type="MeshInstance3D" parent="TestPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 8)
+mesh = ExtResource("3_b87dm")
+skeleton = NodePath("../..")
+
+[node name="Pawn" type="MeshInstance3D" parent="TestPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 7)
+mesh = ExtResource("4_1o77q")
+skeleton = NodePath("../..")
+
+[node name="Queen" type="MeshInstance3D" parent="TestPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 8)
+mesh = ExtResource("5_jqoxh")
+skeleton = NodePath("../..")
+
+[node name="Rook" type="MeshInstance3D" parent="TestPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 8)
+mesh = ExtResource("6_4m3hv")
+skeleton = NodePath("../..")
+
+[node name="Bishop2" type="MeshInstance3D" parent="TestPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 1)
+mesh = ExtResource("1_nqjsd")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_k6an4")
+
+[node name="King2" type="MeshInstance3D" parent="TestPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 1)
+mesh = ExtResource("2_14faq")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_k6an4")
+
+[node name="Knight2" type="MeshInstance3D" parent="TestPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 1)
+mesh = ExtResource("3_b87dm")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_k6an4")
+
+[node name="Pawn2" type="MeshInstance3D" parent="TestPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 2)
+mesh = ExtResource("4_1o77q")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_k6an4")
+
+[node name="Queen2" type="MeshInstance3D" parent="TestPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 1)
+mesh = ExtResource("5_jqoxh")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_k6an4")
+
+[node name="Rook2" type="MeshInstance3D" parent="TestPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 1)
+mesh = ExtResource("6_4m3hv")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_k6an4")
+
+[node name="CEL" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CEL"]
+transform = Transform3D(0.707107, -0.521334, 0.477714, 0, 0.67559, 0.737277, -0.707107, -0.521334, 0.477714, 15, 15, 15)
+environment = ExtResource("7_5w37o")
+attributes = ExtResource("8_j5a6b")
+compositor = ExtResource("9_k2gaa")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CEL"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="CEL"]
+environment = ExtResource("7_5w37o")
+camera_attributes = ExtResource("8_j5a6b")
+compositor = ExtResource("9_k2gaa")

@@ -1,0 +1,4 @@
+[gd_resource type="CameraAttributesPhysical" format=3 uid="uid://b05ekgddwb2lj"]
+
+[resource]
+frustum_focal_length = 55.0
