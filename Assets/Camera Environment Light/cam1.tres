@@ -2,3 +2,4 @@
 
 [resource]
 frustum_focal_length = 55.0
+frustum_near = 10.0
