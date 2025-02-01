@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cfo73hnxevae2"]
+[gd_scene load_steps=20 format=3 uid="uid://cfo73hnxevae2"]
 
 [ext_resource type="ArrayMesh" uid="uid://bqildm7s8mmf6" path="res://Assets/Models/bishop.obj" id="1_nqjsd"]
 [ext_resource type="ArrayMesh" uid="uid://1y3x8g2qc38v" path="res://Assets/Models/king.obj" id="2_14faq"]
@@ -9,22 +9,36 @@
 [ext_resource type="Environment" uid="uid://deiqd44lv3utc" path="res://Assets/Camera Environment Light/env1.tres" id="7_5w37o"]
 [ext_resource type="CameraAttributesPhysical" uid="uid://b05ekgddwb2lj" path="res://Assets/Camera Environment Light/cam1.tres" id="8_j5a6b"]
 [ext_resource type="Compositor" uid="uid://b3ewg6njcycft" path="res://Assets/Camera Environment Light/comp1.tres" id="9_k2gaa"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hrgp2"]
-albedo_color = Color(0.252028, 0.252028, 0.252028, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_wp3wo"]
-material = SubResource("StandardMaterial3D_hrgp2")
-size = Vector2(8, 8)
+[ext_resource type="Script" path="res://Assets/Scripts/PrintDimensions.cs" id="10_wg6em"]
+[ext_resource type="PhysicsMaterial" uid="uid://b7p232jtpejo1" path="res://Assets/Materials/piece_physics_material.tres" id="10_yo5ng"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6an4"]
 albedo_color = Color(0.0980392, 0.0980392, 0.207843, 1)
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6w45m"]
+albedo_color = Color(1, 0.443137, 0, 1)
 
-[node name="TempBoard" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, 4.5)
-mesh = SubResource("PlaneMesh_wp3wo")
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rx4ox"]
+height = 1.404
+radius = 0.21
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_lmsb7"]
+height = 0.14
+radius = 0.29
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uhfhi"]
+albedo_color = Color(0.43134, 0.43134, 0.43134, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wjpuc"]
+material = SubResource("StandardMaterial3D_uhfhi")
+size = Vector3(8, 1, 8)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jp515"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nl5fi"]
+size = Vector3(8, 1, 8)
+
+[node name="Node3D" type="Node3D"]
 
 [node name="TestPieces" type="Node3D" parent="."]
 
@@ -104,8 +118,43 @@ compositor = ExtResource("9_k2gaa")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="CEL"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="CEL"]
 environment = ExtResource("7_5w37o")
 camera_attributes = ExtResource("8_j5a6b")
 compositor = ExtResource("9_k2gaa")
+
+[node name="ClickTestQueen" type="Node3D" parent="."]
+transform = Transform3D(0.496928, 0.867791, 0, -0.867791, 0.496928, 0, 0, 0, 1, 3.44214, 1.92274, 3.80618)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="ClickTestQueen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+physics_material_override = ExtResource("10_yo5ng")
+
+[node name="Queen" type="MeshInstance3D" parent="ClickTestQueen/RigidBody3D"]
+mesh = ExtResource("5_jqoxh")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_6w45m")
+script = ExtResource("10_wg6em")
+
+[node name="Full" type="CollisionShape3D" parent="ClickTestQueen/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.702, 0)
+shape = SubResource("CylinderShape3D_rx4ox")
+
+[node name="Base" type="CollisionShape3D" parent="ClickTestQueen/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, 0)
+shape = SubResource("CylinderShape3D_lmsb7")
+
+[node name="Board" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -0.5, 4.5)
+
+[node name="TempBoard" type="MeshInstance3D" parent="Board"]
+mesh = SubResource("BoxMesh_wjpuc")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Board"]
+physics_material_override = SubResource("PhysicsMaterial_jp515")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Board/StaticBody3D"]
+shape = SubResource("BoxShape3D_nl5fi")
